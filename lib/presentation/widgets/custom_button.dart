@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatefulWidget {
   CustomButton({
     required this.callBackFunction,
+    required this.label,
   });
 
   final VoidCallback callBackFunction;
+  final String label;
 
   @override
   _CustomButtonState createState() => _CustomButtonState();
@@ -28,7 +30,7 @@ class _CustomButtonState extends State<CustomButton> {
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 17),
         child: Text(
-          "ADD",
+          widget.label,
           style: TextStyle(color: kWhite, fontSize: 15),
         ),
       ),
