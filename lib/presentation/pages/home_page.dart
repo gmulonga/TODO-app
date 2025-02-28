@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/presentation/widgets/todo_tile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +14,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Center(
               child: Text(
@@ -20,9 +22,9 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            Container(
-              child: ,
-            )
+            todoTile(),
+            todoTile(),
+            todoTile()
           ],
         ),
       ),
