@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/core/constants.dart';
 
 class todoTile extends StatelessWidget {
   const todoTile({
@@ -11,7 +12,7 @@ class todoTile extends StatelessWidget {
       padding: EdgeInsets.only(left: 10, right: 10, top: 5),
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: kWhite,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
@@ -23,7 +24,7 @@ class todoTile extends StatelessWidget {
         child: Row(
           children: [
             Checkbox(
-              activeColor: Colors.blue,
+              activeColor: kNavyBlue,
               value: true,
               onChanged: (bool) {},
             ),
