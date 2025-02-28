@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:todo/presentation/widgets/todo_tile.dart';
 import 'package:todo/core/constants.dart';
 import 'package:todo/presentation/widgets/searchbar.dart';
+import 'package:todo/presentation/pages/add_todo_page.dart';
+import 'package:animations/animations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -81,15 +83,22 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: kNavyBlue,
-        shape: CircleBorder(),
-        child: Icon(
-          Icons.add,
-          color: kWhite,
-        ),
-        onPressed: () {
-          print("pressed");
+      floatingActionButton: OpenContainer(
+        transitionDuration: Duration(milliseconds: 500),
+        closedShape: CircleBorder(),
+        closedElevation: 6,
+        closedColor: kNavyBlue,
+        openColor: Colors.white,
+        closedBuilder: (context, openContainer) {
+          return FloatingActionButton(
+            backgroundColor: kNavyBlue,
+            shape: CircleBorder(),
+            child: Icon(Icons.add, color: kWhite),
+            onPressed: openContainer,
+          );
+        },
+        openBuilder: (context, closeContainer) {
+          return AddTodoPage();
         },
       ),
     );
