@@ -53,7 +53,7 @@ class _SearchbarState extends State<Searchbar> {
               suffixIcon: IconButton(
                 icon: Icon(
                   Icons.search,
-                  color: kNavyBlue,
+                  color: kGrey,
                 ),
                 onPressed: () {
                   setState(() {

@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Stack(
-            clipBehavior: Clip.none, // Ensures the search bar isn't clipped
+            clipBehavior: Clip.none,
             children: [
               Container(
                 color: kNavyBlue,
@@ -47,9 +47,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Positioned(
-                left: screenWidth * 0.05, // Centering horizontally
+                left: screenWidth * 0.05,
                 right: screenWidth * 0.05,
-                bottom: -25, // Overlapping the container
+                bottom: -25,
                 child: Container(
                   width: screenWidth * 0.9,
                   decoration: BoxDecoration(
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          SizedBox(height: 35), // Adjust spacing to accommodate search bar
+          SizedBox(height: 45),
           Expanded(
             child: ListView(
               padding: EdgeInsets.symmetric(horizontal: 0),
@@ -80,6 +80,17 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: kNavyBlue,
+        shape: CircleBorder(),
+        child: Icon(
+          Icons.add,
+          color: kWhite,
+        ),
+        onPressed: () {
+          print("pressed");
+        },
       ),
     );
   }
