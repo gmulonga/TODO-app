@@ -4,8 +4,17 @@ import 'package:todo/data/models/todo_model.dart';
 
 class TodoTile extends StatelessWidget {
   final TodoModel todo;
+  final ValueChanged<bool?> onCheckboxChanged;
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
 
-  const TodoTile({Key? key, required this.todo}) : super(key: key);
+  const TodoTile(
+      {Key? key,
+      required this.todo,
+      required this.onCheckboxChanged,
+      required this.onDelete,
+      required this.onEdit})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

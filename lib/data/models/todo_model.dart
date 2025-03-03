@@ -20,4 +20,12 @@ class TodoModel {
       isChecked: map['isChecked'] == 1,
     );
   }
+
+  TodoModel copyWith({int? id, String? title, bool? isChecked}) {
+    return TodoModel(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      isChecked: isChecked ?? this.isChecked,
+    );
+  }
 }

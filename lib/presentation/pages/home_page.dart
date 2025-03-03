@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo/data/models/todo_model.dart';
 import 'package:todo/logic/todo_bloc/todo_state.dart';
 import 'package:todo/presentation/widgets/todo_tile.dart';
 import 'package:todo/core/constants.dart';
@@ -23,6 +24,19 @@ class _HomePageState extends State<HomePage> {
     context.read<TodoBloc>().add(LoadTodos());
   }
 
+  void toggleCheckbox(TodoModel todo, bool? value) {
+    final updatedTodo = todo.copyWith(isChecked: value ?? false);
+    context.read<TodoBloc>().add(UpdateTodo(updatedTodo));
+  }
+
+  void editTodo(int index) {
+    Navigator.pushNamed(context, "/edit-todo");
+  }
+
+  void deleteTodo(int index) {
+    context.read<TodoBloc>().add(DeleteTodo(index));
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -39,11 +53,11 @@ class _HomePageState extends State<HomePage> {
               Container(
                 color: kNavyBlue,
                 height: screenHeight * 0.2,
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "TODO",
                       style: TextStyle(
                         color: kWhite,
@@ -53,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.sunny, color: kWhite),
+                      icon: const Icon(Icons.sunny, color: kWhite),
                     ),
                   ],
                 ),
@@ -71,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.black.withOpacity(0.1),
                         blurRadius: 5,
                         spreadRadius: 2,
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -84,18 +98,22 @@ class _HomePageState extends State<HomePage> {
             child: BlocBuilder<TodoBloc, TodoState>(
               builder: (context, state) {
                 if (state is TodoLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (state is TodoLoaded) {
                   return ListView.builder(
                     itemCount: state.todos.length,
                     itemBuilder: (context, index) {
                       return TodoTile(
                         todo: state.todos[index],
+                        onCheckboxChanged: (value) =>
+                            toggleCheckbox(state.todos[index], value),
+                        onEdit: () => editTodo(index),
+                        onDelete: () => deleteTodo(index),
                       );
                     },
                   );
                 } else {
-                  return Center(child: Text("No todos found"));
+                  return const Center(child: Text("No todos found"));
                 }
               },
             ),
@@ -103,21 +121,21 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: OpenContainer(
-        transitionDuration: Duration(milliseconds: 500),
-        closedShape: CircleBorder(),
+        transitionDuration: const Duration(milliseconds: 500),
+        closedShape: const CircleBorder(),
         closedElevation: 6,
         closedColor: kNavyBlue,
         openColor: Colors.white,
         closedBuilder: (context, openContainer) {
           return FloatingActionButton(
             backgroundColor: kNavyBlue,
-            shape: CircleBorder(),
-            child: Icon(Icons.add, color: kWhite),
+            shape: const CircleBorder(),
+            child: const Icon(Icons.add, color: kWhite),
             onPressed: openContainer,
           );
         },
         openBuilder: (context, closeContainer) {
-          return AddTodoPage();
+          return const AddTodoPage();
         },
       ),
     );

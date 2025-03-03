@@ -40,15 +40,25 @@ class LocalDatabase {
     return result.map((map) => TodoModel.fromMap(map)).toList();
   }
 
-  Future<int> updateTodo(TodoModel todo) async {
-    final db = await instance.database;
-    return await db.update(
+  Future<void> updateTodo(TodoModel todo) async {
+    final db = await database;
+    await db.update(
       'todos',
       todo.toMap(),
       where: 'id = ?',
       whereArgs: [todo.id],
     );
   }
+
+  // Future<int> updateTodo(TodoModel todo) async {
+  //   final db = await instance.database;
+  //   return await db.update(
+  //     'todos',
+  //     todo.toMap(),
+  //     where: 'id = ?',
+  //     whereArgs: [todo.id],
+  //   );
+  // }
 
   Future<int> deleteTodo(int id) async {
     final db = await instance.database;
