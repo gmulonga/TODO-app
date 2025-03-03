@@ -37,14 +37,14 @@ class TodoTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: onEdit,
                   icon: Icon(
                     Icons.edit,
                     color: kGrey,
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: onDelete,
                   icon: Icon(
                     Icons.delete,
                     color: kGrey,
@@ -57,7 +57,7 @@ class TodoTile extends StatelessWidget {
                 Checkbox(
                   activeColor: kNavyBlue,
                   value: todo.isChecked,
-                  onChanged: (bool) {},
+                  onChanged: onCheckboxChanged,
                 ),
                 Expanded(
                   child: Padding(

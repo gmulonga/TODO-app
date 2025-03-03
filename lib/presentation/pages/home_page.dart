@@ -29,8 +29,12 @@ class _HomePageState extends State<HomePage> {
     context.read<TodoBloc>().add(UpdateTodo(updatedTodo));
   }
 
-  void editTodo(int index) {
-    Navigator.pushNamed(context, "/edit-todo");
+  void editTodo(TodoModel todo) {
+    Navigator.pushNamed(
+      context,
+      "/edit-todo",
+      arguments: todo,
+    );
   }
 
   void deleteTodo(int index) {
@@ -107,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                         todo: state.todos[index],
                         onCheckboxChanged: (value) =>
                             toggleCheckbox(state.todos[index], value),
-                        onEdit: () => editTodo(index),
+                        onEdit: () => editTodo(state.todos[index]),
                         onDelete: () => deleteTodo(index),
                       );
                     },

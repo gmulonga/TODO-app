@@ -50,16 +50,6 @@ class LocalDatabase {
     );
   }
 
-  // Future<int> updateTodo(TodoModel todo) async {
-  //   final db = await instance.database;
-  //   return await db.update(
-  //     'todos',
-  //     todo.toMap(),
-  //     where: 'id = ?',
-  //     whereArgs: [todo.id],
-  //   );
-  // }
-
   Future<int> deleteTodo(int id) async {
     final db = await instance.database;
     return await db.delete('todos', where: 'id = ?', whereArgs: [id]);
