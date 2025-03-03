@@ -18,10 +18,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final TextEditingController _textController = TextEditingController();
+  List<TodoModel> _filteredTodos = [];
+
   @override
   void initState() {
     super.initState();
     context.read<TodoBloc>().add(LoadTodos());
+    _textController.addListener(_filterTodos);
+  }
+
+  @override
+  void dispose() {
+    _textController.removeListener(_filterTodos);
+    _textController.dispose();
+    super.dispose();
+  }
+
+  void _filterTodos() {
+    final state = context.read<TodoBloc>().state;
+    if (state is TodoLoaded) {
+      setState(() {
+        _filteredTodos = state.todos
+            .where((todo) => todo.title
+                .toLowerCase()
+                .contains(_textController.text.toLowerCase()))
+            .toList();
+      });
+    }
   }
 
   void toggleCheckbox(TodoModel todo, bool? value) {
@@ -45,7 +69,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    TextEditingController _textController = TextEditingController();
 
     return Scaffold(
       body: Column(
@@ -104,15 +127,18 @@ class _HomePageState extends State<HomePage> {
                 if (state is TodoLoading) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (state is TodoLoaded) {
+                  final todos = _textController.text.isEmpty
+                      ? state.todos
+                      : _filteredTodos;
                   return ListView.builder(
-                    padding: EdgeInsets.symmetric(vertical: 30),
-                    itemCount: state.todos.length,
+                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    itemCount: todos.length,
                     itemBuilder: (context, index) {
                       return TodoTile(
-                        todo: state.todos[index],
+                        todo: todos[index],
                         onCheckboxChanged: (value) =>
-                            toggleCheckbox(state.todos[index], value),
-                        onEdit: () => editTodo(state.todos[index]),
+                            toggleCheckbox(todos[index], value),
+                        onEdit: () => editTodo(todos[index]),
                         onDelete: () => deleteTodo(index),
                       );
                     },
