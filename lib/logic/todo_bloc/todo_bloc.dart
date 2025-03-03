@@ -39,7 +39,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     on<DeleteTodo>((event, emit) async {
       try {
-        await todoRepository.deleteTodo(event.id);
+        await todoRepository.deleteTodo(event.todo);
         final todos = await todoRepository.getTodos();
         emit(TodoLoaded(todos));
       } catch (e) {

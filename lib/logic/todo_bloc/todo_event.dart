@@ -17,7 +17,7 @@ class UpdateTodo extends TodoEvent {
 }
 
 class DeleteTodo extends TodoEvent {
-  final int id;
+  final TodoModel todo;
 
-  DeleteTodo(this.id);
+  DeleteTodo(this.todo);
 }

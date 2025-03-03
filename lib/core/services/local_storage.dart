@@ -50,8 +50,12 @@ class LocalDatabase {
     );
   }
 
-  Future<int> deleteTodo(int id) async {
-    final db = await instance.database;
-    return await db.delete('todos', where: 'id = ?', whereArgs: [id]);
+  Future<void> deleteTodo(TodoModel todo) async {
+    final db = await database;
+    await db.delete(
+      'todos',
+      where: 'id = ?',
+      whereArgs: [todo.id],
+    );
   }
 }

@@ -61,8 +61,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void deleteTodo(int index) {
-    context.read<TodoBloc>().add(DeleteTodo(index));
+  void deleteTodo(TodoModel todo) {
+    context.read<TodoBloc>().add(DeleteTodo(todo));
   }
 
   @override
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.sunny, color: kWhite),
+                      icon: const Icon(Icons.note_add, color: kWhite),
                     ),
                   ],
                 ),
@@ -134,12 +134,13 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.symmetric(vertical: 30),
                     itemCount: todos.length,
                     itemBuilder: (context, index) {
+                      final todo = todos[index];
                       return TodoTile(
-                        todo: todos[index],
+                        todo: todo,
                         onCheckboxChanged: (value) =>
                             toggleCheckbox(todos[index], value),
                         onEdit: () => editTodo(todos[index]),
-                        onDelete: () => deleteTodo(index),
+                        onDelete: () => deleteTodo(todo),
                       );
                     },
                   );

@@ -16,7 +16,7 @@ class TodoRepository {
     await localDatabase.updateTodo(todo);
   }
 
-  Future<void> deleteTodo(int id) async {
-    await localDatabase.deleteTodo(id);
+  Future<void> deleteTodo(TodoModel todo) async {
+    await localDatabase.deleteTodo(todo);
   }
 }
