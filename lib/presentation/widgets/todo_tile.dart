@@ -22,19 +22,42 @@ class TodoTile extends StatelessWidget {
                   spreadRadius: 2,
                   offset: Offset(2, 4))
             ]),
-        child: Row(
+        child: Column(
           children: [
-            Checkbox(
-              activeColor: kNavyBlue,
-              value: todo.isChecked,
-              onChanged: (bool) {},
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.edit,
+                    color: kGrey,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.delete,
+                    color: kGrey,
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                child: Text(todo.title),
-              ),
-            )
+            Row(
+              children: [
+                Checkbox(
+                  activeColor: kNavyBlue,
+                  value: todo.isChecked,
+                  onChanged: (bool) {},
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                    child: Text(todo.title),
+                  ),
+                )
+              ],
+            ),
           ],
         ),
       ),
