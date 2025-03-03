@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo/logic/todo_bloc/todo_state.dart';
 import 'package:todo/presentation/widgets/todo_tile.dart';
 import 'package:todo/core/constants.dart';
 import 'package:todo/presentation/widgets/searchbar.dart';
 import 'package:todo/presentation/pages/add_todo_page.dart';
 import 'package:animations/animations.dart';
+import 'package:todo/logic/todo_bloc/todo_bloc.dart';
+import 'package:todo/logic/todo_bloc/todo_event.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +17,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<TodoBloc>().add(LoadTodos());
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -70,15 +80,24 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          SizedBox(height: 45),
           Expanded(
-            child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 0),
-              children: [
-                todoTile(),
-                todoTile(),
-                todoTile(),
-              ],
+            child: BlocBuilder<TodoBloc, TodoState>(
+              builder: (context, state) {
+                if (state is TodoLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state is TodoLoaded) {
+                  return ListView.builder(
+                    itemCount: state.todos.length,
+                    itemBuilder: (context, index) {
+                      return TodoTile(
+                        todo: state.todos[index],
+                      );
+                    },
+                  );
+                } else {
+                  return Center(child: Text("No todos found"));
+                }
+              },
             ),
           ),
         ],

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/core/constants.dart';
 import 'package:todo/presentation/widgets/custom_button.dart';
+import 'package:todo/logic/todo_bloc/todo_bloc.dart';
+import 'package:todo/logic/todo_bloc/todo_event.dart';
+import 'package:todo/data/models/todo_model.dart';
 
 class AddTodoPage extends StatefulWidget {
   const AddTodoPage({super.key});
@@ -11,6 +15,14 @@ class AddTodoPage extends StatefulWidget {
 
 class _AddTodoPageState extends State<AddTodoPage> {
   TextEditingController _todoController = TextEditingController();
+
+  void _addTodo() {
+    final String text = _todoController.text.trim();
+    if (text.isNotEmpty) {
+      context.read<TodoBloc>().add(AddTodo(TodoModel(title: text)));
+      Navigator.pop(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,20 +53,17 @@ class _AddTodoPageState extends State<AddTodoPage> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                        color: kNavyBlue,
-                        width: 1), // Border color when focused
+                    borderSide: BorderSide(color: kNavyBlue, width: 1),
                   ),
                   contentPadding: EdgeInsets.all(10),
                 ),
                 cursorColor: kNavyBlue,
-                // Cursor color when typing
                 style: TextStyle(color: kNavyBlue), // Text color
               )),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: CustomButton(
-              callBackFunction: () {},
+              callBackFunction: _addTodo,
               label: "Add",
             ),
           ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:todo/core/constants.dart';
+import 'package:todo/data/models/todo_model.dart';
 
-class todoTile extends StatelessWidget {
-  const todoTile({
-    super.key,
-  });
+class TodoTile extends StatelessWidget {
+  final TodoModel todo;
+
+  const TodoTile({Key? key, required this.todo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +26,13 @@ class todoTile extends StatelessWidget {
           children: [
             Checkbox(
               activeColor: kNavyBlue,
-              value: true,
+              value: todo.isChecked,
               onChanged: (bool) {},
             ),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                child: Text(
-                    'This is a sample to is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been'),
+                child: Text(todo.title),
               ),
             )
           ],
