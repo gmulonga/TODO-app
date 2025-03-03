@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../data/models/todo_model.dart';
 import '../../data/repositories/todo_repository.dart';
 import 'todo_event.dart';
 import 'todo_state.dart';
