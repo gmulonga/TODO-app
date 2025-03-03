@@ -105,6 +105,7 @@ class _HomePageState extends State<HomePage> {
                   return const Center(child: CircularProgressIndicator());
                 } else if (state is TodoLoaded) {
                   return ListView.builder(
+                    padding: EdgeInsets.symmetric(vertical: 30),
                     itemCount: state.todos.length,
                     itemBuilder: (context, index) {
                       return TodoTile(
