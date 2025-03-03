@@ -8,15 +8,15 @@ A simple TODO app built with Flutter to help users manage their daily tasks effi
 
 ### Home Screen
 
-![Alt Text](assets/home.png)
+![Alt Text](assets/home.png){width=300}
 
 ### Add Task
 
-![Alt Text](assets/add.png)
+![Alt Text](assets/add.png){width=300}
 
 ### Edit Task
 
-![Alt Text](assets/edit.png)
+![Alt Text](assets/edit.png){width=300}
 
 ## Features
 
