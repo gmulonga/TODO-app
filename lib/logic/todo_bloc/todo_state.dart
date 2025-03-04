@@ -17,3 +17,11 @@ class TodoError extends TodoState {
 
   TodoError(this.message);
 }
+
+class UpdateTodoSuccess extends TodoState {}
+
+class UpdateTodoFailure extends TodoState {
+  final String message;
+
+  UpdateTodoFailure(this.message);
+}

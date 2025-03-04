@@ -29,10 +29,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<UpdateTodo>((event, emit) async {
       try {
         await todoRepository.updateTodo(event.todo);
+        emit(UpdateTodoSuccess());
         final todos = await todoRepository.getTodos();
         emit(TodoLoaded(todos));
       } catch (e) {
-        emit(TodoError("Failed to update todo"));
+        emit(UpdateTodoFailure("Failed to update todo"));
       }
     });
 
