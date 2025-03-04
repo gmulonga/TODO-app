@@ -19,10 +19,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<AddTodo>((event, emit) async {
       try {
         await todoRepository.addTodo(event.todo);
+        emit(AddTodoSuccess());
         final todos = await todoRepository.getTodos();
         emit(TodoLoaded(todos));
       } catch (e) {
-        emit(TodoError("Failed to add todo"));
+        emit(AddTodoFailure("Failed to add todo"));
       }
     });
 
@@ -40,10 +41,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<DeleteTodo>((event, emit) async {
       try {
         await todoRepository.deleteTodo(event.todo);
+        emit(DeleteTodoSuccess());
         final todos = await todoRepository.getTodos();
         emit(TodoLoaded(todos));
       } catch (e) {
-        emit(TodoError("Failed to delete todo"));
+        emit(DeleteTodoFailure("Failed to delete todo"));
       }
     });
   }

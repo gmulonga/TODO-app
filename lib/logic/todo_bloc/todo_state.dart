@@ -25,3 +25,19 @@ class UpdateTodoFailure extends TodoState {
 
   UpdateTodoFailure(this.message);
 }
+
+class AddTodoSuccess extends TodoState {}
+
+class AddTodoFailure extends TodoState {
+  final String message;
+
+  AddTodoFailure(this.message);
+}
+
+class DeleteTodoSuccess extends TodoState {}
+
+class DeleteTodoFailure extends TodoState {
+  final String message;
+
+  DeleteTodoFailure(this.message);
+}
